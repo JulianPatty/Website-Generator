@@ -1,14 +1,6 @@
-import { PrismaClient, Prisma} from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
-
-const userData: Prisma.UserCreateInput[] = [
-  {
-    email: 'john@example.com',
-    name: 'John Doe',
-  },
-  
-]
 async function main() {
   console.log('🌱 Seeding database...')
   
