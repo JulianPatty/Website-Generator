@@ -15,11 +15,12 @@
     "db:studio": "prisma studio --schema=./src/prisma/schema.prisma"
   },
   "prisma": {
-    "seed": "tsx src/prisma/seed.ts", 
+    "seed": "tsx src/prisma/seed.ts",
     "schema": "src/prisma/schema.prisma"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
+    "@inngest/agent-kit": "^0.9.0",
     "@prisma/client": "^6.13.0",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
