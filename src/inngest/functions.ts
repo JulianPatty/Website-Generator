@@ -1,4 +1,4 @@
-import { openai, createAgent, createTool, createNetwork, type Tool } from "@inngest/agent-kit";
+import { openai, anthropic, createAgent, createTool, createNetwork, type Tool } from "@inngest/agent-kit";
 import { Sandbox } from "@e2b/code-interpreter"
 import { inngest } from "@/inngest/client";
 import { getSandbox, lastAssistantTextMessageContent } from "@/inngest/utils";
@@ -25,7 +25,7 @@ export const codeAgentFunction = inngest.createFunction(
       description: "An expert coding agent that can run commands and create or update files in a sandbox.",
       system: PROMPT,
       model: openai({
-        model: "gpt-4o-mini",
+        model: "gpt-4o",
         defaultParameters: {
           temperature: 0.1,
         },
