@@ -31,8 +31,9 @@ export const MessagesContainer = ({ projectId }: Props) => {
       bottomRef.current?.scrollIntoView();
     }, [messages.length]);
 
+//TODO: Add a scroll to bottom button
 
-    return (
+    return ( 
         <div className="flex flex-col min-h-0">
           <div className="flex-1 min-h-0 overflow-y-auto">
             <div className="pt-2 pr-1">
