@@ -1,7 +1,7 @@
 'use client';
 import { toast } from "sonner";
 import { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,7 @@ const Page = () => {
   return (
     <div className="h-screen w-screen flex items-center justify-center">
       <div className="max-w-7xl mx-auto flex flex-col items-center gap-4-y justify-center">
+        <h1 className="text-2xl font-bold">Julians AI</h1>
         <Input value={value} onChange={(e) => setValue(e.target.value)} />
         <Button disabled={createProject.isPending}
           onClick={() => createProject.mutate({ value: value })}>
