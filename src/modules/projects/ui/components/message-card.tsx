@@ -33,7 +33,7 @@ const FragmentCard = ({
   return (
     <button
     className={cn(
-      "flex items-start text-start gap-2 border rounded-lg bg-muted w-fit p-3 hover:bg-secondarytransition-colors",
+      "flex items-start text-start gap-2 border rounded-lg bg-muted w-fit p-3 hover:bg-secondary transition-colors",
       isActiveFragment && "bg-primary text-primary-foreground border-primary hover:bg-primary",
     )}
     onClick={() => onFragmentClick(fragment)}
@@ -44,7 +44,7 @@ const FragmentCard = ({
 
         <span className="text-sm text-muted-foreground">Preview</span>
       </div>
-      <div className="flex items-center juistify-center mt-0.5">  
+      <div className="flex items-center justify-center mt-0.5">  
         <ChevronRight className="size-4" />
       </div>
 
@@ -79,7 +79,7 @@ const FragmentCard = ({
         )}>
         <div className="flex items-center gap-2 pl-2 mb-2">
           <Image 
-          src="/SetnLogo.svg" 
+          src="/Logo.svg" 
           alt="SETN" 
           width={20} 
           height={20} 

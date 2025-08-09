@@ -1,33 +1,40 @@
 "use client";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useTRPC } from "@/trpc/client";
+
 import { ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
  } from "@/components/ui/resizable";
+import { Fragment } from "@prisma/client";  // This may be wrong , it's supposed to be form @/generated/prisma.ts
 import { MessagesContainer } from "@/modules/projects/ui/components/messages-container";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
+import { ProjectHeader } from "../components/project-header";
 
 interface Props {
     projectId: string;
 };
 
 export const ProjectView = ({ projectId }: Props) => {
-    //* const trpc = useTRPC();
-    //* const { data: project } = useSuspenseQuery(trpc.projects.getOne.queryOptions({
-    //*     id: projectId,
-    //* }))
-
+   const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
+    
     return (
         <div className="h-screen">
             <ResizablePanelGroup direction="horizontal">
                 <ResizablePanel 
-                defaultSize={30}
-                minSize ={20}
-                className="flex flex-col min-h-0"
-                >
-             <Suspense fallback={<div>Loading messages...</div>}>
-            <MessagesContainer projectId={projectId}/>
+                defaultSize={35}
+                minSize={20}
+                className="flex flex-col min-h-0">
+
+                <Suspense fallback={<p>Loading project...</p>}>
+                    <ProjectHeader projectId={projectId} />
+                </Suspense>
+
+
+             <Suspense fallback={<p>Loading messages...</p>}>
+            <MessagesContainer 
+            projectId={projectId}
+            activeFragment={activeFragment}
+            setActiveFragment={setActiveFragment}
+            />
             </Suspense>
             </ResizablePanel>
             <ResizableHandle withHandle />

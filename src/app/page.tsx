@@ -27,7 +27,7 @@ const Page = () => {
   }));
   return (
     <div className="h-screen w-screen flex items-center justify-center">
-      <div className="max-w-7xl mx-auto flex flex-col items-center gap-4-y justify-center">
+      <div className="max-w-7xl mx-auto flex flex-col items-center gap-y-4 justify-center">
         <h1 className="text-2xl font-bold">Julians AI</h1>
         <Input value={value} onChange={(e) => setValue(e.target.value)} />
         <Button disabled={createProject.isPending}

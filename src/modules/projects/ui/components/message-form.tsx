@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 
 
-interface MessageFormProps {
+interface Props {
     projectId: string;
 };
 
@@ -23,7 +23,7 @@ const formSchema = z.object({
         .max(10000, {message: "Character limit exceeded"}),
 });
 
-export const MessageForm = ({ projectId }: MessageFormProps) => {   
+export const MessageForm = ({ projectId }: Props) => {   
 
     const trpc = useTRPC();
     const queryClient = useQueryClient();
@@ -80,8 +80,9 @@ const createMessage = useMutation(trpc.messages.create.mutationOptions({
                     onBlur={() => setIsFocused(false)}
                     minRows={2}
                     maxRows={8}
-                    placeholder="Type your message here..."
                     className="pt-4 resize-none border-none w-full outline-none bg-transparent"
+                    placeholder="Type your message here..."
+                    // Submit form when Cmd/Ctrl + Enter is pressed
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
                             e.preventDefault();
@@ -95,12 +96,13 @@ const createMessage = useMutation(trpc.messages.create.mutationOptions({
                 <div className="text-[10px] text-muted-foreground font-mono">
                     <kbd className=" ml-auto pointer-events-none inline-flex h-5 select-none items-center
                     gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium
-                    text muted foreground">
-                        <span>&#8984</span>Enter
+                    text-muted-foreground">
+                        <span>&#8984;</span>Enter
                     </kbd>
                     &nbsp;to submit
-                  </div>
+                  </div>   
                   <Button 
+                  type="submit"
                   disabled={isButtonDisabled}
                   className= {cn(
                     "size-8 rounded-full",
