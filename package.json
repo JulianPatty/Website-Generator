@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:inngest": "npx inngest-cli@latest dev",
-    "dev:full": "concurrently -n \"NEXT,INNGEST,STUDIO\" -c \"cyan,magenta,yellow\" \"npm run dev\" \"npm run dev:inngest\" \"npm run db:studio\"",
+    "dev:full": "concurrently -n \"NEXT,INNGEST,STUDIO\" -c \"cyan,magenta,yellow\" \"npm run dev\" \" npx inngest-cli@latest dev\" \"npm run db:studio\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

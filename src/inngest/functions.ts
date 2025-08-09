@@ -165,12 +165,12 @@ export const codeAgentFunction = inngest.createFunction(
           }
         });
       }
-      return await prisma.message.create ({
+      return await prisma.message.create({
         data: {
           projectId: event.data.projectId,
           content: result.state.data.summary,
-        role: "ASSISTANT",
-        type: "RESULT",
+          role: "ASSISTANT",
+          type: "RESULT",
         fragment: {
           create: {
           sandboxUrl: sandboxUrl,
