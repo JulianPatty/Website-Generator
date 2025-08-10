@@ -2,7 +2,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
-import { Fragment } from "@prisma/client";  // This may be wrong , it's supposed to be form @/generated/prisma.ts
+import { Fragment } from "@/generated/prisma";  // This may be wrong , it's supposed to be form @/generated/prisma.ts
 import { useTRPC } from "@/trpc/client";
 
 import { MessageLoading } from "./message-loading";
@@ -26,15 +26,14 @@ export const MessagesContainer = ({ projectId, activeFragment,  setActiveFragmen
       refetchInterval: 5000,
     }
   ));
-     // TODO: This is causing problems with the fragment selection
-    // useEffect(() => {
-    //   const lastAssistantMessageWithFragment = messages.findLast((message) => 
-    //     message.role === "ASSISTANT" && message.fragment);
+    useEffect(() => {
+      const lastAssistantMessageWithFragment = messages.findLast((message) => 
+        message.role === "ASSISTANT" && message.fragment);
 
-    //   if (lastAssistantMessageWithFragment) {
-    //     setActiveFragment(lastAssistantMessageWithFragment.fragment);
-    //   }
-    // }, [messages, setActiveFragment]);
+      if (lastAssistantMessageWithFragment) {
+        setActiveFragment(lastAssistantMessageWithFragment.fragment);
+      }
+    }, [messages, setActiveFragment]);
 
     useEffect(() => {
       bottomRef.current?.scrollIntoView();

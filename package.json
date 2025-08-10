@@ -9,15 +9,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:seed": "tsx src/prisma/seed.ts",
-    "db:generate": "prisma generate --schema=./src/prisma/schema.prisma",
-    "db:push": "prisma db push --schema=./src/prisma/schema.prisma",
-    "db:migrate": "prisma migrate dev --schema=./src/prisma/schema.prisma",
-    "db:studio": "prisma studio --schema=./src/prisma/schema.prisma"
+    "db:seed": "tsx prisma/seed.ts",
+    "db:generate": "prisma generate --schema=./prisma/schema.prisma",
+    "db:push": "prisma db push --schema=./prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema=./prisma/schema.prisma",
+    "db:studio": "prisma studio --schema=./prisma/schema.prisma"
   },
   "prisma": {
-    "seed": "tsx src/prisma/seed.ts",
-    "schema": "src/prisma/schema.prisma"
+    "seed": "tsx prisma/seed.ts",
+    "schema": "prisma/schema.prisma"
   },
   "dependencies": {
     "@e2b/code-interpreter": "^1.5.1",

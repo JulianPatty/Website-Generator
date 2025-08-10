@@ -1,4 +1,4 @@
-import { Fragment } from '@prisma/client';
+import { Fragment } from '@/generated/prisma';
 import { useState } from 'react';
 import { ExternalLinkIcon, RefreshCwIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,7 @@ export const FragmentWeb = ({ data }: Props) => {
     const [copied, setCopied] = useState(false);
     const [fragmentKey, setFragmentKey] = useState(0);
 
-    const onRefresh =() => {
+    const onRefresh = () => {
         setFragmentKey((prev) => prev + 1);
     };
 
@@ -21,7 +21,7 @@ export const FragmentWeb = ({ data }: Props) => {
         navigator.clipboard.writeText(data.sandboxUrl);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
-        };
+    };
    
     
     return (
@@ -33,7 +33,7 @@ export const FragmentWeb = ({ data }: Props) => {
                     <RefreshCwIcon />
                 </Button>
                 </Hint>
-                <Hint text="Refresh" side="bottom" align="start">
+                <Hint text="Copy URL" side="bottom" align="start">
                 <Button 
                 size="sm" 
                 variant="outline" 

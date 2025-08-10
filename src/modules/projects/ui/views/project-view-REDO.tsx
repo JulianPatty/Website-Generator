@@ -6,7 +6,6 @@ import { EyeIcon, CodeIcon, CrownIcon } from "lucide-react";
 
 import { Fragment } from "@/generated/prisma"; 
 import { Button } from "@/components/ui/button";
-import { FileExplorer } from "@/components/file-explorer-REDO";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {
@@ -18,6 +17,10 @@ import {
 import { FragmentWeb } from "../components/fragment-web";
 import { ProjectHeader } from "../components/project-header";
 import { MessagesContainer } from "@/modules/projects/ui/components/messages-container";
+
+
+//import { FileExplorer } from "@/components/file-explorer";
+import { CodeView } from "@/components/code-view";
 
 
 
@@ -82,12 +85,8 @@ export const ProjectView = ({ projectId }: Props) => {
                             {!!activeFragment && <FragmentWeb data={activeFragment} />}
                          </TabsContent>
 
-                         <TabsContent value="code" className="min-h-0">
-                            {!!activeFragment?.files && (
-                                <FileExplorer 
-                                files={activeFragment.files as { [path: string]: string }} 
-                                />
-                            )}
+                         <TabsContent value="code">
+                            <CodeView lang="ts" code="const a = 'Hello World';" />
                          </TabsContent>
                     </Tabs>
                 </ResizablePanel>
