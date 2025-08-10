@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import type { Fragment, MessageRole, MessageType } from "@prisma/client";
+import type { Fragment, MessageRole, MessageType } from "@/generated/prisma";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import Image from "next/image";
