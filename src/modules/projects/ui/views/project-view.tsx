@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Suspense, useState } from "react";
 import { EyeIcon, CodeIcon, CrownIcon } from "lucide-react";
-
+import { UserControl } from "@/components/user-control";
 import { Fragment } from "@/generated/prisma"; 
 import { Button } from "@/components/ui/button";
 import { FileExplorer } from "@/components/file-explorer-REDO";
@@ -75,6 +75,7 @@ export const ProjectView = ({ projectId }: Props) => {
                                             <CrownIcon/> Upgrade
                                         </Link>
                                     </Button>
+                                    <UserControl />
 
                             </div>
                          </div>

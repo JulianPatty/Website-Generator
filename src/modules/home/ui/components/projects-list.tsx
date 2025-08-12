@@ -35,7 +35,7 @@ export const ProjectsList = () => {
                    <Link href={`/projects/${project.id}`}>
                    <div className="flex items-center gap-x-4">
                     <Image
-                    src="Logo.svg"
+                    src="logo.svg"
                     alt="setn.ai"
                     width={32}
                     height={32}
