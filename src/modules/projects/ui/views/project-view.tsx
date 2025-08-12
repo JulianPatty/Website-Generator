@@ -6,7 +6,7 @@ import { EyeIcon, CodeIcon, CrownIcon } from "lucide-react";
 import { UserControl } from "@/components/user-control";
 import { Fragment } from "@/generated/prisma"; 
 import { Button } from "@/components/ui/button";
-import { FileExplorer } from "@/components/file-explorer-REDO";
+import { FileExplorer } from "@/components/file-explorer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {

@@ -1,12 +1,15 @@
-import { CopyIcon, CopyCheckIcon } from "lucide-react";
+import { CopyIcon, CheckIcon } from "lucide-react";
 import { useState, useMemo, useCallback, Fragment } from "react";
-import { Button } from "@/components/ui/button";
+import { TreeView } from "@/components/tree-view"
+
 import { Hint } from "@/components/hint";
-import { CodeView } from "@/components/code-view/index";
+import { Button } from "@/components/ui/button";
+import { CodeView } from "@/components/code-view";
+import { convertFilesToTreeItems } from "@/lib/utils";
+
 import { ResizablePanel, ResizableHandle, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbList, BreadcrumbEllipsis } from "@/components/ui/breadcrumb";
-import { convertFilesToTreeItems } from "@/lib/utils";
-import { TreeView } from "@/components/tree-view";
+
 
 
 type FileCollection = { [path: string]: string };
@@ -20,11 +23,10 @@ function getLanguageFromExtension(filename: string): string {
 interface FileBreadcrumbProps {
     filePath: string;
 }
-
+// Breadcrumb starts here
 const FileBreadcrumb = ({ filePath }: FileBreadcrumbProps) => {
     const pathSegments = filePath.split("/");
-    const maxSegments = 3; 
-    // Dont Break this line
+    const maxSegments = 4; 
 
     const renderBreadcrumbItems = () => {
         if (pathSegments.length <= maxSegments) {
@@ -83,21 +85,23 @@ return (
         </BreadcrumbList>
     </Breadcrumb>
 )}
-    
-    interface FileExplorerProps {
-        files: FileCollection;
 
-    };
+//Breadcrumb ends here
 
-    export const FileExplorer = ({
-        files,
-    }: FileExplorerProps) => {
+interface FileExplorerProps {
+    files: FileCollection;
+};;
+
+// This allows us to pre select the first file we find
+export const FileExplorer = ({
+    files, }: FileExplorerProps) => {
         const [copied, setCopied] = useState(false);
-        const [selectedFile, setSelectedFile] = useState<string | null>(() => {
+        const [selectedFile, setSelectedFile] = useState<string | null>(()=>{
             const fileKeys = Object.keys(files);
             return fileKeys.length > 0 ? fileKeys[0] : null;
         });
-
+        
+        //Treeview starts here
         const treeData = useMemo(() => {
             return convertFilesToTreeItems(files);
         }, [files]);
@@ -109,60 +113,58 @@ return (
                 setSelectedFile(filePath);
             }
         }, [files]);
-
+        // Treeview ends here
+        
         const handleCopy = useCallback(() => {
-            if (selectedFile){
+            if (selectedFile) {
                 navigator.clipboard.writeText(files[selectedFile]);
                 setCopied(true);
                 setTimeout(() => {
                     setCopied(false);
                 }, 2000);
-                }
-            }, [selectedFile, files]);
-
+            }
+        }, [selectedFile, files]);
 
         return (
-            <ResizablePanelGroup direction="horizontal">
+            <ResizablePanelGroup direction="horizontal"> 
                 <ResizablePanel defaultSize={30} minSize={30} className="bg-sidebar">
                     <TreeView
                         data={treeData}
                         value={selectedFile}
-                        onSelect={handleFileSelect} />
+                        onSelect={handleFileSelect}
+                    />
                 </ResizablePanel>
-                <ResizableHandle className="hover:bg-primary transition-colors" />
-                <ResizablePanel defaultSize={70} minSize={50} className="bg-sidebar">
-                    {selectedFile && files[selectedFile] ? (
-                        <div className="h-full w-full flex flex-col">
-                            <div className="border-b bg-sidebar px-4 py-2 flex justify-between items-center gap-x-2">
-                                <FileBreadcrumb filePath={selectedFile} />
-                                <Hint text="copy to clipboard" side="bottom">
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
-                                        className="ml-auto"
-                                        onClick={handleCopy}
-                                        disabled={copied}
-                                    >
-                                        {copied ? <CopyCheckIcon/> : <CopyIcon />}
-                                    </Button>
-                                </Hint>
+               <ResizableHandle className="hover-bg-primary transition-colors" />
+               <ResizablePanel defaultSize={70} minSize={50}>
+                {selectedFile && files[selectedFile] ? (
+                    <div className="h-full w-full flex flex-col">
+                        <div className="border-b bg-sidebar px-4 py-2 flex items-center gap-x-2">
+                            <FileBreadcrumb filePath={selectedFile} />
+                            <Hint text="Copy to clipboard" side="bottom">
+                                <Button
+                                variant="outline"
+                                size="icon"
+                                className="ml-auto"
+                                onClick={handleCopy}
+                                disabled={copied}
+                                >
+                                    {copied ? <CheckIcon /> : <CopyIcon />}
+                                </Button>
+                            </Hint>
                             </div>
-                            <div className="flex-1 overflow-auto">
-                                <CodeView
-                                    code={files[selectedFile]}
-                                    lang={getLanguageFromExtension(selectedFile)}
-                                />
-                            </div>
-                        <p> TODO: Code Editor </p>
+                        <div className="flex-1 overflow-auto">
+                        <CodeView
+                        code={files[selectedFile]}
+                        lang={getLanguageFromExtension(selectedFile)}
+                        />
                         </div>
-                    ) : (
-                        <div className="flex h-full items-center justify-center text-muted-foreground">
-                            Select a file to view it&apos;s content Here
-                        </div>
-                    )}
-                </ResizablePanel>
+                    </div>
+                ) : (
+                  <div className= "flex h-full items-center justify-center text-muted-foreground">
+                    Select a file to view it&apos;s content
+                  </div>
+                )}
+               </ResizablePanel>
             </ResizablePanelGroup>
         )
     };
-
-
