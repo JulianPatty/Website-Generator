@@ -19,7 +19,7 @@ const Page = () => {
         <div className={`relative transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div className="absolute inset-0 blur-2xl bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-full animate-pulse" />
           <Image 
-            src="/Logo.svg" 
+            src="/logo.svg" 
             alt="Setn" 
             width={80} 
             height={80} 

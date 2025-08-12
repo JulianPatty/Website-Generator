@@ -79,7 +79,7 @@ const FragmentCard = ({
         )}>
         <div className="flex items-center gap-2 pl-2 mb-2">
           <Image 
-          src="/Logo.svg" 
+          src="/logo.svg" 
           alt="SETN" 
           width={20} 
           height={20} 
