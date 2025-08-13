@@ -117,7 +117,8 @@ pre[class*='language-'] {
 .dark .token.number,
 .dark .token.constant,
 .dark .token.symbol,
-.dark .token.deleted {
+.dark .token.deleted 
+.dark.token.deleted{
   color: #79b8ff; /* constant, entity.name.constant, variable.other.constant */
 }
 
