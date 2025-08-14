@@ -1,3 +1,4 @@
+import DynamicPayment from "@/components/payment/dynamic-payment";
 import Payment from "@/components/payment/payment";
 
 export default function Pricing() {
@@ -6,6 +7,10 @@ export default function Pricing() {
             <div className="my-10">
             <h1 className="text-2xl font-bold mb-5">Basic Plan</h1>
             <Payment />
+        </div>
+        <div className="my-10">
+            <h1 className="text-2xl font-bold mb-5">Premium Plan</h1>
+            <DynamicPayment />
         </div>
         </div>
     )
