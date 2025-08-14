@@ -51,7 +51,7 @@ export const UserControl = ({ showName = true }: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-auto p-1 gap-2">
-          <Avatar className="h-8 w-8">
+          <Avatar className="h-3 w-3">
             <AvatarImage src={user.image || undefined} alt={user.name || "User"} />
             <AvatarFallback className="text-xs">{initials}</AvatarFallback>
           </Avatar>

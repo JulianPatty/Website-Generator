@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ExternalLinkIcon, RefreshCwIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Hint } from '@/components/hint';
+import { CheckIcon, CopyIcon } from 'lucide-react';
 
 interface Props {
     data: Fragment;
@@ -26,46 +27,69 @@ export const FragmentWeb = ({ data }: Props) => {
     
     return (
 
-        <div className="flex flex-col w-full h-full" >
-            <div className="p-2 border-b bg-sidebar flex items-center gap-x-2">
-            <Hint text="Refresh" side="bottom" align="start">
-                <Button size="sm" variant="outline" onClick={onRefresh}>
-                    <RefreshCwIcon />
-                </Button>
-                </Hint>
-                <Hint text="Copy URL" side="bottom" align="start">
-                <Button 
-                size="sm" 
-                variant="outline" 
-                onClick={handleCopy}
-                disabled={!data.sandboxUrl || copied}
-                className="flex-1 justify-start text-start font-normal"
-                >
-                    <span className="truncate"> 
-                        {data.sandboxUrl}
-                     </span>
-                </Button>
-                </Hint>
-                <Hint text="Open in new tab" side="bottom" align="start">
-                <Button 
-                size="sm" 
-                variant="outline" 
-                onClick={() => { 
-                    if (!data.sandboxUrl) return;
-                    window.open(data.sandboxUrl, "_blank");
-                }}
-                >
-                    <ExternalLinkIcon />
-                </Button>
-                </Hint>
+        <div className="mx-auto max-w-7xl pt-2 pl-2">
+        <div className="rounded-lg border border-border bg-background shadow-xl overflow-hidden">
+            {/* macOS Window Title Bar */}
+            <div className="bg-sidebar border-b border-border px-4 py-3 flex items-center">
+                {/* Traffic Light Buttons */}
+                <div className="flex items-center gap-2 mr-4">
+                    <div className="h-3 w-3 rounded-full bg-red-500 hover:opacity-80 cursor-pointer" />
+                    <div className="h-3 w-3 rounded-full bg-yellow-500 hover:opacity-80 cursor-pointer" />
+                    <div className="h-3 w-3 rounded-full bg-green-500 hover:opacity-80 cursor-pointer" />
+                </div>
+                
+                {/* URL Bar / Controls */}
+                <div className="flex items-center gap-2 flex-1">
+                    <Hint text="Refresh" side="bottom" align="start">
+                        <Button size="sm" variant="ghost" onClick={onRefresh}>
+                            <RefreshCwIcon className="h-4 w-4" />
+                        </Button>
+                    </Hint>
+                    
+                    {/* URL Display */}
+                    <div className="flex-1 bg-muted/50 rounded-md px-3 py-1.5 flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground truncate">
+                            {data.sandboxUrl || "No URL loaded"}
+                        </span>
+                        <Hint text="Copy URL" side="bottom">
+                            <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={handleCopy}
+                                disabled={!data.sandboxUrl || copied}
+                                className="ml-auto h-6 w-6 p-0"
+                            >
+                                {copied ? <CheckIcon className="h-3 w-3" /> : <CopyIcon className="h-3 w-3" />}
+                            </Button>
+                        </Hint>
+                    </div>
+                    
+                    <Hint text="Open in new tab" side="bottom" align="end">
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => {
+                                if (!data.sandboxUrl) return;
+                                window.open(data.sandboxUrl, "_blank");
+                            }}
+                        >
+                            <ExternalLinkIcon className="h-4 w-4" />
+                        </Button>
+                    </Hint>
+                </div>
             </div>
-            <iframe
-                key={fragmentKey}
-                className="w-full h-full"
-                sandbox="allow-forms allow-scripts allow-same-origin"
-                loading="lazy"
-                src={data.sandboxUrl}
-            />
+            
+            {/* IFrame Content Area */}
+            <div className="bg-white" style={{ height: '600px' }}>
+                <iframe
+                    key={fragmentKey}
+                    className="w-full h-full"
+                    sandbox="allow-forms allow-scripts allow-same-origin"
+                    loading="lazy"
+                    src={data.sandboxUrl}
+                />
+            </div>
         </div>
-    );
+    </div>
+    )
 };
