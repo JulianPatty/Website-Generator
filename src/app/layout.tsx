@@ -5,7 +5,6 @@ import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Navbar } from "@/modules/home/ui/components/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
