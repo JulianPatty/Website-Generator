@@ -6,11 +6,11 @@ import Link from "next/link"
 import { useTRPC } from "@/trpc/client"
 import { Button } from "@/components/ui/button"
 import { useQuery } from "@tanstack/react-query"
-import { useUser } from "@clerk/nextjs"
+import { useAuth } from "@/hooks/use-auth"
 
 export const ProjectsList = () => {
     const trpc = useTRPC();
-    const {user} = useUser();
+    const { user } = useAuth();
     const {data: projects} = useQuery(trpc.projects.getMany.queryOptions());
     
     if (!user) {
@@ -20,7 +20,7 @@ export const ProjectsList = () => {
     return (
         <div className="w-full bg-white dark:bg-sidebar rounded-xl p-8 border flex flex-col gap-y-6 sm:gap-4">
             <h2 className="text-2xl font-semibold"> 
-                {user?.firstName}&apos;s Projects
+                {user?.name?.split(' ')[0] || 'Your'}&apos;s Projects
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {projects?.length === 0 && (
