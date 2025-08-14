@@ -7,7 +7,7 @@ const projectData: Prisma.ProjectCreateInput[] = [
     name: "Sample Web Project",
     messages: {
       create: [
-        {
+        { 
           content: "Create a landing page",
           role: "USER",
           type: "RESULT",

@@ -7,7 +7,6 @@ const publicRoutes = [
   '/sign-in',
   '/sign-up',
   '/api/auth',
-  '/api/trpc',
   '/pricing',
 ];
 

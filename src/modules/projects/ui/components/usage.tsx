@@ -31,7 +31,7 @@ export const Usage = ({ points, msBeforeNext }: Props) => {
                    <Button
                    asChild
                    size="sm"
-                   variant="tertiary"
+                   variant="secondary"
                    className="ml-auto"
                    >
                     <Link href="/pricing">

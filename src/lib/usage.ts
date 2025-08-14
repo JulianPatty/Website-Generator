@@ -1,5 +1,5 @@
-import { rateLimiterPrisma } from "rate-limiter-flexible"
- 
+import { RateLimiterPrisma } from "rate-limiter-flexible"
+import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 
 const FREE_POINTS = 1000
@@ -7,7 +7,7 @@ const FREE_DURATION = 30 * 24 * 60 * 60 // 30 Days
 const GENERATION_COST = 250; // 250 Points per Generation
 
 export async function getUsageTracker() {
-    const usageTracker = new rateLimiterPrisma({
+    const usageTracker = new RateLimiterPrisma({
         storeClient: prisma,
         tableName: "Usage",
         points: FREE_POINTS,
@@ -18,8 +18,6 @@ export async function getUsageTracker() {
 }
 
 export async function consumeCredits(userId: string) {
-    const { userId } = await auth();
-
     if (!userId) {
         throw new Error("User not Authenticated")
     }
@@ -30,8 +28,6 @@ export async function consumeCredits(userId: string) {
 }
 
 export async function getUsageStatus(userId: string) {
-    const {userId} = await auth();
-
     if (!userId) {
         throw new Error("User not Authenticated")
     }
@@ -42,3 +38,11 @@ export async function getUsageStatus(userId: string) {
 }
 
 export async function getUsageByUser(userId: string) {
+    if (!userId) {
+        throw new Error("User not Authenticated")
+    }
+
+    const usageTracker = await getUsageTracker();
+    const usage = await usageTracker.get(userId);
+    return usage;
+}

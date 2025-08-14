@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 // Initialize Dodo Payments client
 export const dodoPayments = new DodoPayments({
   bearerToken: process.env.DODO_PAYMENTS_API_KEY!,
-  environment: "test_mode", // or "live_mode" for production
+  environment: process.env.DODO_PAYMENTS_ENVIRONMENT === 'live_mode' ? 'live_mode' : 'test_mode',
 });
 
 export const auth = betterAuth({
@@ -21,6 +21,17 @@ export const auth = betterAuth({
     requireEmailVerification: false,
     minPasswordLength: 8,
     maxPasswordLength: 128
+  },
+  socialProviders: {
+    google: {
+      prompt: "select_account", 
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
+    github: { 
+      clientId: process.env.GITHUB_CLIENT_ID as string, 
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string, 
+    },
   },
   session: {
     expiresIn: 60 * 60 * 24 * 30, // 30 days
@@ -85,4 +96,4 @@ export const auth = betterAuth({
 
 export type Session = typeof auth.$Infer.Session;
 
-export type User = typeof auth.$Infer.User;
+export type User = typeof auth.$Infer.Session.user;
