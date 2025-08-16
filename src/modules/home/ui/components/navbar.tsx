@@ -26,12 +26,12 @@ export const Navbar = () => {
                         <>
                             {!isAuthenticated ? (
                                 <>
-                                    <Link href="/sign-in">
+                                    <Link href="/auth/sign-in">
                                         <Button variant="ghost" size="sm">
                                             Sign In
                                         </Button>
                                     </Link>
-                                    <Link href="/sign-up">
+                                    <Link href="/auth/sign-up">
                                         <Button size="sm">
                                             Sign Up
                                         </Button>

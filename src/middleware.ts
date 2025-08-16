@@ -4,8 +4,8 @@ import type { Session } from "@/lib/auth";
 
 const publicRoutes = [
   '/',
-  '/sign-in',
-  '/sign-up',
+  '/auth/sign-in',
+  '/auth/sign-up',
   '/api',
   '/pricing',
 ];
@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
   });
 
   if (!session) {
-    const signInUrl = new URL('/sign-in', request.url);
+    const signInUrl = new URL('/auth/sign-in', request.url);
     signInUrl.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(signInUrl);
   }

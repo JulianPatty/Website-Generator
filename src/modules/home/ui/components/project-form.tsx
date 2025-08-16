@@ -95,12 +95,12 @@ export const ProjectForm = () => {
                             </div>
                             
                             {/* Prompt Input */}
-                            <div className="flex items-start gap-3">
+                            <div className="flex flex-col gap-3 align-center">
                                 <span className="text-sm font-mono text-muted-foreground select-none">
-                                    <span className="text-blue-600 dark:text-blue-400">const</span>{" "}
-                                    <span className="text-foreground">prompt</span>{" "}
+                                    <span className="text-blue-600 dark:text-blue-400">type</span>{" "}
+                                    <span className="text-foreground">your prompt</span>{" "}
                                     <span className="text-muted-foreground">=</span>{" "}
-                                    <span className="text-green-600 dark:text-green-400">"</span>
+                                    <span className="text-green-600 dark:text-green-400 justify-start "></span>
                                 </span>
                                 <FormField
                                     control={form.control}
@@ -114,7 +114,7 @@ export const ProjectForm = () => {
                                                 onBlur={() => setIsFocused(false)}
                                                 minRows={1}
                                                 maxRows={6}
-                                                className="w-[90%] resize-none border-none outline-none bg-transparent text-sm font-mono text-green-600 dark:text-green-400 placeholder:text-green-600/50 dark:placeholder:text-green-400/60"
+                                                className="w-[90%] resize-none border-none outline-none bg-transparent text-sm font-mono text-green-600 dark:text-green-400 placeholder:text-green-600/50 dark:placeholder:text-green-400/60 items-center"
                                                 placeholder="Create a modern blog with authentication..."
                                                 onKeyDown={(e) => {
                                                     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
@@ -123,7 +123,6 @@ export const ProjectForm = () => {
                                                     }
                                                 }}
                                             />
-                                            <span className="text-sm font-mono text-green-600 dark:text-green-400 select-none flex">"</span>
                                         </div>
                                     )}
                                 />
@@ -167,16 +166,16 @@ export const ProjectForm = () => {
 
             {/* Template Suggestions */}
             <div className="flex flex-wrap gap-2 justify-center">
-                <span className="text-xs text-muted-foreground flex items-center gap-1">
+                <span className="text-xs text-muted-foreground flex items-center gap-3">
                     <Sparkles className="h-3 w-3" />
                     Try:
                 </span>
-                {PROJECT_TEMPLATES.slice(0, 4).map((template) => (
+                {PROJECT_TEMPLATES.slice(0, 10).map((template) => (
                     <Button
                         key={template.title}
                         variant="ghost"
                         size="sm"
-                        className="h-7 text-xs font-normal"
+                        className="h-7 text-sm font-normal"
                         onClick={() => onSelect(template.prompt)}
                         disabled={isPending}
                     >

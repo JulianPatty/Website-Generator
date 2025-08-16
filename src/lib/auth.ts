@@ -3,6 +3,8 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "@/generated/prisma";
 import { dodopayments, checkout, portal, webhooks } from "@dodopayments/better-auth";
 import { DodoPayments } from "dodopayments";
+import { passkey } from "better-auth/plugins/passkey";
+import { nextCookies } from "better-auth/next-js";
 
 const prisma = new PrismaClient();
 
@@ -20,7 +22,14 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: false,
     minPasswordLength: 8,
-    maxPasswordLength: 128
+    maxPasswordLength: 128,
+    autoSignIn: true,
+  },
+  account: {
+    accountLinking: {
+      enabled: true,
+      autoSignIn: true,
+    },
   },
   socialProviders: {
     google: {
@@ -43,6 +52,24 @@ export const auth = betterAuth({
   },
   trustedOrigins: [process.env.BETTER_AUTH_URL || "http://localhost:3000"],
   plugins: [
+    // Next.js Cookies Plugin
+    nextCookies(),
+    
+    // Passkey Authentication
+    passkey({
+      rpName: "Setn.ai",
+      rpID: process.env.NODE_ENV === "production" 
+        ? new URL(process.env.BETTER_AUTH_URL || "").hostname 
+        : "localhost",
+      origin: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+      authenticatorSelection: {
+        authenticatorAttachment: "platform",
+        userVerification: "preferred",
+        requireResidentKey: false,
+        residentKey: "preferred"
+      }
+    }),
+    
     dodopayments({
       client: dodoPayments,
       createCustomerOnSignUp: true,
@@ -51,15 +78,15 @@ export const auth = betterAuth({
         checkout({
           products: [
             {
-              productId: "pdt_basic_monthly", // Replace with your actual product ID from Dodo Payments
-              slug: "basic-plan",
+              productId: "pdt_S6ncY3gQPU37eJwU6aMQR", // Replace with your actual product ID from Dodo Payments
+              slug: "https://test.checkout.dodopayments.com/buy/pdt_S6ncY3gQPU37eJwU6aMQR?quantity=1",
             },
             {
-              productId: "pdt_premium_monthly", // Replace with your actual product ID from Dodo Payments
-              slug: "premium-plan",
+              productId: "pdt_DB4wXUIpzk9O0RMQRRPX2", // Replace with your actual product ID from Dodo Payments
+              slug: "https://test.checkout.dodopayments.com/buy/pdt_DB4wXUIpzk9O0RMQRRPX2?quantity=1",
             }
           ],
-          successUrl: "/success",
+          successUrl: "/pricing/success",
           authenticatedUsersOnly: true,
         }),
         
@@ -88,6 +115,7 @@ export const auth = betterAuth({
             console.log("Subscription cancelled:", payload);
             // Handle subscription cancellation
           },
+
         }),
       ],
     })

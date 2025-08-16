@@ -11,18 +11,19 @@ export default function Pricing() {
     
     const pricingPlans = [
         {
-            id: 'basic',
-            title: 'Basic Plan',
-            price: 9,
+            id: 'pdt_S6ncY3gQPU37eJwU6aMQR',
+            title: 'Unity-Basic [Standard]',
+            price: 19.99,
             period: '/month',
             description: 'Perfect for individuals and small projects',
             features: [
+                '10,000 Usage Credits',
                 'Access to basic features',
-                'Up to 10 projects',
-                'Email support',
+                'Up to 50 Projects',
+                'Dashboard & Analytics',
                 'Basic analytics',
-                { text: 'Custom integrations', included: false },
-                { text: 'Team collaboration', included: false },
+                { text: 'Custom integrations', included: true },
+                { text: 'Team collaboration', included: true },
             ],
             actionButton: (
                 <DodoCheckout 
@@ -33,9 +34,9 @@ export default function Pricing() {
             ),
         },
         {
-            id: 'premium',
-            title: 'Premium Plan',
-            price: 29,
+            id: 'pdt_DB4wXUIpzk9O0RMQRRPX2',
+            title: 'Unity-Pro [Business]',
+            price: 39.99,
             period: '/month',
             description: 'Best for growing teams and businesses',
             features: [
@@ -57,7 +58,7 @@ export default function Pricing() {
         },
         {
             id: 'enterprise',
-            title: 'Enterprise',
+            title: 'Legacy-Enterprise [Custom]',
             price: 'Custom',
             period: '',
             description: 'Tailored solutions for large organizations',
@@ -78,7 +79,7 @@ export default function Pricing() {
     ];
     
     return (
-        <div className="min-h-screen bg-background text-foreground">
+        <div className="min-h-screen bg-transparent text-foreground">
             <div className="container mx-auto px-4 py-16">
                 <PricingTable
                     title="Simple, Transparent Pricing"

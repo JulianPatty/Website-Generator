@@ -35,7 +35,7 @@ export const ProjectView = ({ projectId }: Props) => {
                 <ResizablePanel
                     defaultSize={35}
                     minSize={20}
-                    className="flex flex-col min-h-0"
+                    className="flex flex-col min-h-0 bg-black-00"
                     >
                     <Suspense fallback={<p>Loading project...</p>}>
                         <ProjectHeader projectId={projectId} />

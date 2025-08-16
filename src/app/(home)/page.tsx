@@ -30,13 +30,13 @@ const Page = () => {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               {!isAuthenticated ? (
                 <>
-                  <Link href="/sign-up">
+                  <Link href="/auth/sign-up">
                     <Button size="lg" className="gap-2">
                       Get Started
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>
-                  <Link href="/sign-in">
+                  <Link href="/auth/sign-in">
                     <Button variant="outline" size="lg">
                       Sign In
                     </Button>
@@ -172,7 +172,7 @@ const Page = () => {
               </div>
               <pre className="text-sm overflow-x-auto">
                 <code className="language-typescript">{`// Start building with natural language
-const prompt = "Create a modern blog with authentication"
+type your prompt = "Create a modern blog with authentication"
 
 // Setn.ai generates everything for you
 await setn.generate({

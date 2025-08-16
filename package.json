@@ -9,15 +9,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:seed": "tsx prisma/seed.ts",
-    "db:generate": "prisma generate --schema=./prisma/schema.prisma",
-    "db:push": "prisma db push --schema=./prisma/schema.prisma",
-    "db:migrate": "prisma migrate dev --schema=./prisma/schema.prisma",
-    "db:studio": "prisma studio --schema=./prisma/schema.prisma"
+    "db:seed": "tsx src/db/seed.ts",
+    "db:generate": "prisma generate --schema=./src/db/schema.prisma",
+    "db:push": "prisma db push --schema=./src/db/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema=./src/db/schema.prisma",
+    "db:studio": "prisma studio --schema=./src/db/schema.prisma"
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts",
-    "schema": "prisma/schema.prisma"
+    "seed": "tsx src/db/seed.ts",
+    "schema": "src/db/schema.prisma"
   },
   "dependencies": {
     "@better-fetch/fetch": "^1.1.18",

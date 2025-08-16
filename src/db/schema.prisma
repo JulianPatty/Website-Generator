@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -18,22 +18,33 @@ datasource db {
 
 model User {
   id            String   @id @default(uuid())
-  email         String   @unique
-  emailVerified Boolean  @default(false)
-  name          String?
-  image         String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  name          String?
+  firstName     String?
+  lastName      String?
+  phone         String?
+  image         String?
+  twoFactorEnabled Boolean @default(false)
+
   accounts Account[]
   sessions Session[]
+  twoFactors TwoFactor[]
+  passkeys Passkey[]
   // projects      Project[] // Will be added after migration
   @@map("user")
 }
 
 model Account {
   id                    String    @id @default(uuid())
-  userId                String
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+
+
   accountId             String
   providerId            String
   accessToken           String?   @db.Text
@@ -42,10 +53,9 @@ model Account {
   refreshTokenExpiresAt DateTime?
   scope                 String?
   idToken               String?   @db.Text
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
   password              String?
 
+  userId                String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("account")
@@ -68,14 +78,44 @@ model Session {
 
 model Verification {
   id         String   @id @default(uuid())
-  identifier String
-  value      String
-  expiresAt  DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  identifier String
+  value      String
+  expiresAt  DateTime
+
   @@unique([identifier, value])
   @@map("verification")
+}
+
+// Two-Factor Authentication Model
+model TwoFactor {
+  id          String @id @default(uuid())
+  secret      String
+  backupCodes String @db.Text
+  userId      String
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("twoFactor")
+}
+
+// Passkey Model
+model Passkey {
+  id           String    @id @default(uuid())
+  name         String?
+  publicKey    String    @db.Text
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credentialID String    @unique
+  counter      Int
+  deviceType   String
+  backedUp     Boolean
+  transports   String?
+  createdAt    DateTime  @default(now())
+  aaguid       String?
+
+  @@map("passkey")
 }
 
 model Project {

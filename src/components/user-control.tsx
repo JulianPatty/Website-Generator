@@ -14,7 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, User, Settings } from "lucide-react";
+import { LogOut, User, Settings, HelpCircle, CreditCard } from "lucide-react";
+import Link from "next/link";
+import { toast } from "sonner";
 
 interface Props {
   showName?: boolean;
@@ -27,12 +29,22 @@ export const UserControl = ({ showName = true }: Props) => {
 
   const handleSignOut = async () => {
     setIsLoading(true);
+    toast.loading("Signing you out...");
+    
     try {
       await signOut();
+      toast.dismiss();
+      toast.success("Signed out successfully", {
+        description: "Come back soon!",
+      });
       router.push("/");
       router.refresh();
     } catch (error) {
+      toast.dismiss();
       console.error("Failed to sign out:", error);
+      toast.error("Failed to sign out", {
+        description: "Please try again.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -68,13 +80,31 @@ export const UserControl = ({ showName = true }: Props) => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <Link href="/settings">
         <DropdownMenuItem>
           <User className="mr-2 h-4 w-4" />
-          <span>Profile</span>
-        </DropdownMenuItem>
+            <span>Profile</span>
+          </DropdownMenuItem>
+        </Link>
+        <Link href="/pricing">
+        <DropdownMenuItem>
+          <CreditCard className="mr-2 h-4 w-4" />
+            <span>Billing</span>
+          </DropdownMenuItem>
+        </Link>
+         
+        <Link href="/settings">
         <DropdownMenuItem>
           <Settings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
+            <span>Settings</span>
+        </DropdownMenuItem>
+        </Link>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+        <HelpCircle className="mr-2 h-4 w-4" />
+          <Link href="/help">
+            <span> Help </span>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} disabled={isLoading}>
